@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plastic", "Plastic.csproj", "{4AA41B8F-CA50-4BB2-AFB9-5A7D3EC0AEC2}"
+EndProject
+Global
+	GlobalSection(VaultVsipSolution-v2) = preSolution
+		VaultHost = http://inedoappsv1/VaultService
+		VaultRepositoryID = 5
+		VaultRepositoryGUID = f957de65-df0a-4c00-a598-f033184555e1
+		ProjectCount = 1
+		ProjectRelativeDiskPath1 = Plastic.csproj
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AA41B8F-CA50-4BB2-AFB9-5A7D3EC0AEC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AA41B8F-CA50-4BB2-AFB9-5A7D3EC0AEC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AA41B8F-CA50-4BB2-AFB9-5A7D3EC0AEC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AA41B8F-CA50-4BB2-AFB9-5A7D3EC0AEC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
