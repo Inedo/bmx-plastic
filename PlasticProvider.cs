@@ -200,7 +200,7 @@ namespace Inedo.BuildMasterExtensions.Plastic
             if (sourcePath == string.Empty)
                 sourcePath = ".";
 
-            CMPath(workspace.Location, "label", "lb:" + label, "-R", sourcePath);
+            CMPath(workspace.Location, "label", "lb:" + label, sourcePath);
         }
 
         /// <summary>
