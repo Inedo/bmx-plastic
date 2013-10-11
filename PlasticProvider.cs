@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using Inedo.BuildMaster;
@@ -10,7 +11,6 @@ using Inedo.BuildMaster.Extensibility.Providers;
 using Inedo.BuildMaster.Extensibility.Providers.SourceControl;
 using Inedo.BuildMaster.Files;
 using Inedo.BuildMaster.Web;
-using Inedo.Linq;
 
 namespace Inedo.BuildMasterExtensions.Plastic
 {
@@ -19,9 +19,10 @@ namespace Inedo.BuildMasterExtensions.Plastic
     /// </summary>
     [ProviderProperties(
         "Plastic SCM",
-        "Provides functionality for getting files, browsing folders, and applying labels in Plastic SCM.")]
+        "Provides functionality for getting files, browsing folders, and applying labels in Plastic SCM.",
+        RequiresTransparentProxy = true)]
     [CustomEditor(typeof(PlasticProviderEditor))]
-    public sealed class PlasticProvider : SourceControlProviderBase, IVersioningProvider, IRevisionProvider
+    public sealed class PlasticProvider : SourceControlProviderBase, ILabelingProvider, IRevisionProvider
     {
         //lookup version of Plastic by path to cm.exe
         private static readonly Dictionary<string, string> _versionLookup = new Dictionary<string, string>();
@@ -228,7 +229,7 @@ namespace Inedo.BuildMasterExtensions.Plastic
         /// <returns>
         /// A representation of the current revision in source control.
         /// </returns>
-        public byte[] GetCurrentRevision(string path)
+        public object GetCurrentRevision(string path)
         {
             var workspace = GetWorkspace();
             var ver = GetPlasticVersion();
@@ -241,9 +242,7 @@ namespace Inedo.BuildMasterExtensions.Plastic
                 {
                     long id;
                     if (long.TryParse(results[results.Count - 1], out id))
-                    {
-                        return BitConverter.GetBytes(id);
-                    }
+                        return id;
                 }
             }
             else
@@ -273,14 +272,13 @@ namespace Inedo.BuildMasterExtensions.Plastic
                             {
                                 long revID;
                                 if (long.TryParse(spl[0], out revID))
-                                {
-                                    return BitConverter.GetBytes(revID);
-                                }
+                                    return revID;
                             }
                         }
                     }
                 }
             }
+
             return null;
         }
 
