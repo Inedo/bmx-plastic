@@ -3,6 +3,8 @@ using Inedo.BuildMaster.Extensibility.Providers;
 using Inedo.BuildMaster.Web.Controls;
 using Inedo.BuildMaster.Web.Controls.Extensions;
 using Inedo.Web.Controls;
+using Inedo.BuildMaster;
+using Inedo.BuildMaster.Extensibility.Agents;
 
 namespace Inedo.BuildMasterExtensions.Plastic
 {
@@ -91,14 +93,21 @@ namespace Inedo.BuildMasterExtensions.Plastic
             {
                 var curSelected = ddlRepositories.SelectedValue;
                 ddlRepositories.Items.Clear();
-                var repos = PlasticProvider.GetRepositories(txtCMExecutablePath.Text);
-                if (repos != null && repos.Count > 0)
+
+                using (var agent = Util.Agents.CreateAgentFromId(this.EditorContext.ServerId))
                 {
-                    foreach (var r in repos) {
-                        ddlRepositories.Items.Add(r);
+                    var svc = agent.GetService<IRemoteMethodExecuter>();
+                    var repos = svc.InvokeFunc(PlasticProvider.GetRepositories, txtCMExecutablePath.Text);
+                
+                    if (repos != null && repos.Count > 0)
+                    {
+                        foreach (var r in repos) {
+                            ddlRepositories.Items.Add(r);
+                        }
+                        ddlRepositories.Enabled = true;
                     }
-                    ddlRepositories.Enabled = true;
-                }
+                }                
+                
                 if (ddlRepositories.Items.FindByValue(curSelected) != null)
                     ddlRepositories.SelectedValue = curSelected;
             }
