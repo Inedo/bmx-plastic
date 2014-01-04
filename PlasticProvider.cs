@@ -315,10 +315,11 @@ namespace Inedo.BuildMasterExtensions.Plastic
         private string GetWorkspacePath()
         {
             var workspacesDir = Path.Combine(CoreConfig.BaseWorkingDirectory, "PlasticWorkspaces");
-            if (!Directory.Exists(workspacesDir))
-                Directory.CreateDirectory(workspacesDir);
+                
+            var thisWorkspace = Path.Combine(workspacesDir, this.RepositoryName + '_' + this.CreatedTicks);
+            Directory.CreateDirectory(thisWorkspace);
 
-            return Path.Combine(workspacesDir, this.RepositoryName + '_' + this.CreatedTicks);
+            return thisWorkspace;
         }
 
         private List<string> CM(string command, params string[] args)
