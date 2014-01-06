@@ -342,7 +342,8 @@ namespace Inedo.BuildMasterExtensions.Plastic
             {
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
-                RedirectStandardError = true
+                RedirectStandardError = true,
+                LoadUserProfile = true
             };
 
             startInfo.EnvironmentVariables["USERPROFILE"] = GetProfilePath();
